@@ -1,148 +1,144 @@
-// Theme Toggle Functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const themeToggle = document.getElementById('theme-toggle');
-    
-    // Check for saved theme preference or prefer-color-scheme
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-        document.body.classList.add('dark-theme');
-        themeToggle.checked = true;
-    }
-    
-    // Theme switch event listener
-    themeToggle.addEventListener('change', function() {
-        if (this.checked) {
-            document.body.classList.add('dark-theme');
-            localStorage.setItem('theme', 'dark');
-        } else {
-            document.body.classList.remove('dark-theme');
-            localStorage.setItem('theme', 'light');
-        }
-    });
-    
-    // Workout card click event
-    const workoutCards = document.querySelectorAll('.workout-card');
-    const modal = document.getElementById('workout-modal');
-    const closeBtn = document.querySelector('.close-btn');
-    
-    workoutCards.forEach(card => {
-        card.addEventListener('click', function() {
-            const title = this.querySelector('h3').textContent;
-            const time = this.getAttribute('data-time');
-            document.getElementById('modal-workout-title').textContent = title;
-            modal.style.display = 'flex';
-        });
-    });
-    
-    closeBtn.addEventListener('click', function() {
-        modal.style.display = 'none';
-    });
-    
-    window.addEventListener('click', function(event) {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
+// Данные для тренировок
+const workoutExercises = {
+    'Руки и плечи': [
+        { name: 'Разминка', duration: 60 },
+        { name: 'Отжимания', duration: 40 },
+        { name: 'Отдых', duration: 20 },
+        { name: 'Планка с подъемом руки', duration: 40 },
+        { name: 'Отдых', duration: 20 },
+        { name: 'Обратные отжимания от скамьи', duration: 40 },
+        { name: 'Отдых', duration: 20 },
+        { name: 'Боковые подъемы рук', duration: 40 },
+        { name: 'Отдых', duration: 20 },
+        { name: 'Сгибания рук с гантелями', duration: 40 },
+        { name: 'Отдых', duration: 20 },
+        { name: 'Разгибания рук с гантелями', duration: 40 },
+        { name: 'Отдых', duration: 20 },
+        { name: 'Круговые движения руками', duration: 40 },
+        { name: 'Растяжка', duration: 60 }
+    ],
+    'Кардио': [
+        { name: 'Разминка', duration: 60 },
+        { name: 'Прыжки с высоким подъемом колен', duration: 45 },
+        { name: 'Отдых', duration: 15 },
+        { name: 'Бег на месте', duration: 45 },
+        { name: 'Отдых', duration: 15 },
+        { name: 'Прыжки со скакалкой', duration: 45 },
+        { name: 'Отдых', duration: 15 },
+        { name: 'Выпады с прыжком', duration: 45 },
+        { name: 'Отдых', duration: 15 },
+        { name: 'Берпи', duration: 45 },
+        { name: 'Отдых', duration: 15 },
+        { name: 'Альпинист', duration: 45 },
+        { name: 'Отдых', duration: 15 },
+        { name: 'Приседания с прыжком', duration: 45 },
+        { name: 'Отдых', duration: 15 },
+        { name: 'Прыжки из стороны в сторону', duration: 45 },
+        { name: 'Отдых', duration: 15 },
+        { name: 'Высокие колени', duration: 45 },
+        { name: 'Растяжка', duration: 60 }
+    ],
+    'Ноги и ягодицы': [
+        { name: 'Разминка', duration: 60 },
+        { name: 'Приседания', duration: 45 },
+        { name: 'Отдых', duration: 15 },
+        { name: 'Выпады вперед', duration: 45 },
+        { name: 'Отдых', duration: 15 },
+        { name: 'Боковые выпады', duration: 45 },
+        { name: 'Отдых', duration: 15 },
+        { name: 'Подъемы на носки', duration: 45 },
+        { name: 'Отдых', duration: 15 },
+        { name: 'Мостик', duration: 45 },
+        { name: 'Отдых', duration: 15 },
+        { name: 'Махи ногой назад', duration: 45 },
+        { name: 'Отдых', duration: 15 },
+        { name: 'Подъем ног лежа на боку', duration: 45 },
+        { name: 'Отдых', duration: 15 },
+        { name: 'Приседания сумо', duration: 45 },
+        { name: 'Отдых', duration: 15 },
+        { name: 'Ягодичный мостик на одной ноге', duration: 45 },
+        { name: 'Растяжка', duration: 60 }
+    ],
+    'Полное тело': [
+        { name: 'Разминка', duration: 60 },
+        { name: 'Прыжки Джека', duration: 40 },
+        { name: 'Отдых', duration: 20 },
+        { name: 'Приседания', duration: 40 },
+        { name: 'Отдых', duration: 20 },
+        { name: 'Отжимания', duration: 40 },
+        { name: 'Отдых', duration: 20 },
+        { name: 'Выпады', duration: 40 },
+        { name: 'Отдых', duration: 20 },
+        { name: 'Планка', duration: 40 },
+        { name: 'Отдых', duration: 20 },
+        { name: 'Берпи', duration: 40 },
+        { name: 'Отдых', duration: 20 },
+        { name: 'Скручивания', duration: 40 },
+        { name: 'Отдых', duration: 20 },
+        { name: 'Подъемы рук с гантелями', duration: 40 },
+        { name: 'Отдых', duration: 20 },
+        { name: 'Ягодичный мостик', duration: 40 },
+        { name: 'Отдых', duration: 20 },
+        { name: 'Подтягивания ног к груди', duration: 40 },
+        { name: 'Отдых', duration: 20 },
+        { name: 'Боковая планка', duration: 40 },
+        { name: 'Растяжка', duration: 60 }
+    ]
+};
 
-    // Timer functionality
-    let timer;
-    let seconds = 0;
-    let isRunning = false;
-    
-    const timerDisplay = document.getElementById('workout-timer');
-    const startTimerBtn = document.getElementById('start-timer');
-    const pauseTimerBtn = document.getElementById('pause-timer');
-    
-    startTimerBtn.addEventListener('click', function() {
-        if (!isRunning) {
-            isRunning = true;
-            timer = setInterval(updateTimer, 1000);
-            startTimerBtn.textContent = 'Продолжить';
-        }
-    });
-    
-    pauseTimerBtn.addEventListener('click', function() {
-        clearInterval(timer);
-        isRunning = false;
-    });
-    
-    function updateTimer() {
-        seconds++;
-        const minutes = Math.floor(seconds / 60);
-        const remainingSeconds = seconds % 60;
-        timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+// Советы по питанию
+const nutritionTips = [
+    'Пейте достаточно воды до, во время и после тренировки для поддержания гидратации.',
+    'Ешьте углеводы за 1-2 часа до тренировки для обеспечения энергией.',
+    'Употребляйте белок после тренировки для восстановления мышц.',
+    'Включайте в рацион разнообразные фрукты и овощи для получения необходимых витаминов.',
+    'Избегайте тяжелой пищи непосредственно перед тренировкой.',
+    'Следите за размером порций, даже при здоровом питании.',
+    'Включайте полезные жиры в свой рацион для поддержания гормонального баланса.',
+    'Старайтесь есть медленно и осознанно, чтобы лучше чувствовать насыщение.',
+    'Планируйте свои приемы пищи заранее, чтобы избежать нездоровых перекусов.',
+    'Важно восполнять электролиты после интенсивных тренировок с повышенным потоотделением.'
+];
+
+// Рецепты
+const recipes = [
+    {
+        title: 'Протеиновый смузи после тренировки',
+        desc: 'Смешайте банан, ягоды, протеин и молоко для идеального восстановления после тренировки.'
+    },
+    {
+        title: 'Овсянка с ягодами и орехами',
+        desc: 'Питательный завтрак с овсянкой, свежими ягодами, медом и миксом орехов для длительной энергии.'
+    },
+    {
+        title: 'Куриная грудка с киноа и овощами',
+        desc: 'Нежирный белок с комплексными углеводами и витаминами для поддержки мышечного роста.'
+    },
+    {
+        title: 'Зеленый смузи с авокадо',
+        desc: 'Микс шпината, авокадо, яблока и имбиря для получения важных микроэлементов и антиоксидантов.'
+    },
+    {
+        title: 'Запеченный лосось с овощами',
+        desc: 'Богатый омега-3 лосось с запеченными овощами для здоровья сердца и восстановления мышц.'
     }
-    
-    // Simulate some workout activity for statistics
-    // This is just for demonstration - in a real app would use stored data
-    function simulateActivityData() {
-        // Update total workouts
-        document.getElementById('total-workouts').textContent = Math.floor(Math.random() * 50) + 10;
-        
-        // Update minutes of activity
-        document.getElementById('total-minutes').textContent = Math.floor(Math.random() * 2000) + 500;
-        
-        // Update workout streak
-        document.getElementById('workout-streak').textContent = Math.floor(Math.random() * 14) + 1;
-        
-        // Update weekly chart
-        for (let i = 1; i <= 7; i++) {
-            const dayBar = document.getElementById(`day-${i}`);
-            const height = Math.floor(Math.random() * 80) + 20;
-            dayBar.style.height = `${height}%`;
-        }
-    }
-    
-    // Call once on page load for demo purposes
-    simulateActivityData();
-    
-    // Exercise rotation for workout modal
-    const exercises = [
-        "Приседания",
-        "Отжимания",
-        "Планка",
-        "Выпады",
-        "Бёрпи",
-        "Скручивания",
-        "Прыжки",
-        "Подтягивания"
-    ];
-    
-    let currentExerciseIndex = 0;
-    
-    function updateCurrentExercise() {
-        if (isRunning) {
-            document.getElementById('current-exercise').textContent = exercises[currentExerciseIndex];
-            
-            const nextIndex = (currentExerciseIndex + 1) % exercises.length;
-            document.getElementById('next-exercise').textContent = exercises[nextIndex];
-            
-            // Update progress bar
-            const progress = document.getElementById('exercise-progress');
-            progress.style.width = '0%';
-            
-            // Simulate progress
-            let width = 0;
-            const progressInterval = setInterval(() => {
-                if (width >= 100) {
-                    clearInterval(progressInterval);
-                    currentExerciseIndex = (currentExerciseIndex + 1) % exercises.length;
-                    setTimeout(updateCurrentExercise, 500); // Delay before next exercise
-                } else {
-                    width += 1;
-                    progress.style.width = width + '%';
-                }
-            }, 300); // Each exercise lasts about 30 seconds
-        }
-    }
-    
-    // Start exercise rotation when timer starts
-    startTimerBtn.addEventListener('click', function() {
-        if (!document.getElementById('current-exercise').textContent.includes('Подготовка')) {
-            return; // Don't restart exercises if already running
-        }
-        setTimeout(updateCurrentExercise, 1000);
-    });
-});
+];
+
+// Переменные для отслеживания состояния
+let workoutInProgress = false;
+let currentTimer = null;
+let currentWorkout = null;
+let currentExerciseIndex = 0;
+let timerSeconds = 0;
+let timerRunning = false;
+let userStats = {
+    totalWorkouts: 0,
+    totalMinutes: 0,
+    workoutStreak: 0,
+    weeklyActivity: [0, 0, 0, 0, 0, 0, 0],
+};
+
+// Элементы DOM для быстрого доступа
+const modal = document.getElementById('workout-modal');
+const modalTitle = document.getElementById('modal-workout-title');
+const currentExerc
