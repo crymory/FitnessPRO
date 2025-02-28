@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitnessPro - Тренируйся с удовольствием</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>FitnessPro</h1>
+                <span>Твой путь к здоровью</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home" class="active">Главная</a></li>
+                    <li><a href="#workouts">Тренировки</a></li>
+                    <li><a href="#progress">Прогресс</a></li>
+                    <li><a href="#nutrition">Питание</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Достигай целей<br>с FitnessPro</h2>
+                <p>Интерактивные тренировки, отслеживание прогресса и персонализированные планы</p>
+                <button id="start-workout-btn" class="btn">Начать тренировку</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="workouts" class="workouts">
+        <div class="container">
+            <h2>Выбери тренировку</h2>
+            <div class="workout-grid">
+                <div class="workout-card" data-time="20" data-difficulty="easy">
+                    <div class="workout-icon">💪</div>
+                    <h3>Руки и плечи</h3>
+                    <span class="tag">20 мин</span>
+                    <span class="tag">Легко</span>
+                    <button class="btn-secondary start-btn">Начать</button>
+                </div>
+                <div class="workout-card" data-time="30" data-difficulty="medium">
+                    <div class="workout-icon">🏃</div>
+                    <h3>Кардио</h3>
+                    <span class="tag">30 мин</span>
+                    <span class="tag">Средне</span>
+                    <button class="btn-secondary start-btn">Начать</button>
+                </div>
+                <div class="workout-card" data-time="25" data-difficulty="medium">
+                    <div class="workout-icon">🦵</div>
+                    <h3>Ноги и ягодицы</h3>
+                    <span class="tag">25 мин</span>
+                    <span class="tag">Средне</span>
+                    <button class="btn-secondary start-btn">Начать</button>
+                </div>
+                <div class="workout-card" data-time="40" data-difficulty="hard">
+                    <div class="workout-icon">🔥</div>
+                    <h3>Полное тело</h3>
+                    <span class="tag">40 мин</span>
+                    <span class="tag">Сложно</span>
+                    <button class="btn-secondary start-btn">Начать</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="progress" class="progress">
+        <div class="container">
+            <h2>Твой прогресс</h2>
+            <div class="stats-container">
+                <div class="stat-card">
+                    <h3>Всего тренировок</h3>
+                    <div class="stat-value" id="total-workouts">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Минут в движении</h3>
+                    <div class="stat-value" id="total-minutes">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Серия тренировок</h3>
+                    <div class="stat-value" id="workout-streak">0</div>
+                </div>
+            </div>
+            <div class="chart-container">
+                <h3>Активность за неделю</h3>
+                <div class="weekly-chart">
+                    <div class="day">
+                        <div class="bar" style="height: 0%;" id="day-1"></div>
+                        <span>Пн</span>
+                    </div>
+                    <div class="day">
+                        <div class="bar" style="height: 0%;" id="day-2"></div>
+                        <span>Вт</span>
+                    </div>
+                    <div class="day">
+                        <div class="bar" style="height: 0%;" id="day-3"></div>
+                        <span>Ср</span>
+                    </div>
+                    <div class="day">
+                        <div class="bar" style="height: 0%;" id="day-4"></div>
+                        <span>Чт</span>
+                    </div>
+                    <div class="day">
+                        <div class="bar" style="height: 0%;" id="day-5"></div>
+                        <span>Пт</span>
+                    </div>
+                    <div class="day">
+                        <div class="bar" style="height: 0%;" id="day-6"></div>
+                        <span>Сб</span>
+                    </div>
+                    <div class="day">
+                        <div class="bar" style="height: 0%;" id="day-7"></div>
+                        <span>Вс</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="nutrition" class="nutrition">
+        <div class="container">
+            <h2>Здоровое питание</h2>
+            <div class="tips-container">
+                <div class="tip-card">
+                    <h3>Совет дня</h3>
+                    <p id="daily-tip">Пейте достаточно воды до, во время и после тренировки для поддержания гидратации.</p>
+                </div>
+                <div class="tip-card recipe">
+                    <h3>Рецепт дня</h3>
+                    <h4 id="recipe-title">Протеиновый смузи после тренировки</h4>
+                    <p id="recipe-desc">Смешайте банан, ягоды, протеин и молоко для идеального восстановления после тренировки.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="workout-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 id="modal-workout-title">Название тренировки</h2>
+            <div class="timer-container">
+                <div class="timer" id="workout-timer">00:00</div>
+                <div class="timer-controls">
+                    <button id="start-timer" class="btn">Старт</button>
+                    <button id="pause-timer" class="btn btn-secondary">Пауза</button>
+                </div>
+            </div>
+            <div class="exercise-container">
+                <h3>Текущее упражнение:</h3>
+                <div id="current-exercise">Подготовка...</div>
+                <div id="next-exercise-container">
+                    <p>Следующее: <span id="next-exercise">-</span></p>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="exercise-progress"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 FitnessPro. Все права защищены.</p>
+            <p>Создано для здорового образа жизни</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
