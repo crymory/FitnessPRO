@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FitnessPro - Тренируйся с удовольствием</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
 </head>
 <body>
     <header>
@@ -14,23 +13,14 @@
                 <h1>FitnessPro</h1>
                 <span>Твой путь к здоровью</span>
             </div>
-            <div class="nav-container">
-                <nav>
-                    <ul>
-                        <li><a href="#home" class="active">Главная</a></li>
-                        <li><a href="#workouts">Тренировки</a></li>
-                        <li><a href="#progress">Прогресс</a></li>
-                        <li><a href="#nutrition">Питание</a></li>
-                    </ul>
-                </nav>
-                <div class="theme-switch">
-                    <span class="theme-switch-label">Темная тема</span>
-                    <label class="switch">
-                        <input type="checkbox" id="theme-toggle">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home" class="active">Главная</a></li>
+                    <li><a href="#workouts">Тренировки</a></li>
+                    <li><a href="#progress">Прогресс</a></li>
+                    <li><a href="#nutrition">Питание</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
@@ -51,37 +41,29 @@
                 <div class="workout-card" data-time="20" data-difficulty="easy">
                     <div class="workout-icon">💪</div>
                     <h3>Руки и плечи</h3>
-                    <div class="tag-container">
-                        <span class="tag">20 мин</span>
-                        <span class="tag">Легко</span>
-                    </div>
+                    <span class="tag">20 мин</span>
+                    <span class="tag">Легко</span>
                     <button class="btn-secondary start-btn">Начать</button>
                 </div>
                 <div class="workout-card" data-time="30" data-difficulty="medium">
                     <div class="workout-icon">🏃</div>
                     <h3>Кардио</h3>
-                    <div class="tag-container">
-                        <span class="tag">30 мин</span>
-                        <span class="tag">Средне</span>
-                    </div>
+                    <span class="tag">30 мин</span>
+                    <span class="tag">Средне</span>
                     <button class="btn-secondary start-btn">Начать</button>
                 </div>
                 <div class="workout-card" data-time="25" data-difficulty="medium">
                     <div class="workout-icon">🦵</div>
                     <h3>Ноги и ягодицы</h3>
-                    <div class="tag-container">
-                        <span class="tag">25 мин</span>
-                        <span class="tag">Средне</span>
-                    </div>
+                    <span class="tag">25 мин</span>
+                    <span class="tag">Средне</span>
                     <button class="btn-secondary start-btn">Начать</button>
                 </div>
                 <div class="workout-card" data-time="40" data-difficulty="hard">
                     <div class="workout-icon">🔥</div>
                     <h3>Полное тело</h3>
-                    <div class="tag-container">
-                        <span class="tag">40 мин</span>
-                        <span class="tag">Сложно</span>
-                    </div>
+                    <span class="tag">40 мин</span>
+                    <span class="tag">Сложно</span>
                     <button class="btn-secondary start-btn">Начать</button>
                 </div>
             </div>
@@ -188,5 +170,7 @@
             <p>Создано для здорового образа жизни</p>
         </div>
     </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
